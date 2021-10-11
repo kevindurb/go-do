@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	"kevindurb/go-do/handlers"
 	"log"
 	"net/http"
 
@@ -9,12 +9,11 @@ import (
 )
 
 func main() {
-    router := mux.NewRouter()
+	router := mux.NewRouter()
 
-    router.HandleFunc("/books", func(w http.ResponseWriter, r *http.Request) {
-        json.NewEncoder(w).Encode("Hello World")
-    })
+	router.HandleFunc("/status", handlers.Status)
+	router.HandleFunc("/items", handlers.CreateTodoItem).Methods(http.MethodPost)
 
-    log.Println("API is running!")
-    http.ListenAndServe(":4000", router)
+	log.Println("API is running!")
+	http.ListenAndServe(":4000", router)
 }
