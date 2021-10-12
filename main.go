@@ -13,6 +13,7 @@ func main() {
 
 	router.HandleFunc("/status", handlers.Status)
 	router.HandleFunc("/items", handlers.CreateTodoItem).Methods(http.MethodPost)
+	router.HandleFunc("/items", handlers.GetTodoItems).Methods(http.MethodGet)
 
 	log.Println("API is running!")
 	http.ListenAndServe(":4000", router)
