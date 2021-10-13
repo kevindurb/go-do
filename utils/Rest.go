@@ -20,3 +20,13 @@ func ParseUIntParam(request *http.Request, key string) uint {
 	intVal, _ := strconv.ParseUint(vars[key], 10, 64)
 	return uint(intVal)
 }
+
+func RespondCreated(response http.ResponseWriter, value interface{}) {
+	response.WriteHeader(http.StatusCreated)
+	json.NewEncoder(response).Encode(value)
+}
+
+func RespondSuccess(response http.ResponseWriter, value interface{}) {
+	response.WriteHeader(http.StatusOK)
+	json.NewEncoder(response).Encode(value)
+}

@@ -2,15 +2,22 @@ package handlers
 
 import (
 	"kevindurb/go-do/models"
+	"kevindurb/go-do/transactions"
 	"kevindurb/go-do/utils"
 	"net/http"
 )
 
-func CreateTodoItem(response http.ResponseWriter, request *http.Request) {
-	db := utils.GetConnection()
+type TodoItemCreateBody struct {
+	Description string `json:"description"`
+}
 
-	var todoItem models.TodoItem
-	utils.ParseBody(request, &todoItem)
-	db.Create(&todoItem)
-	response.WriteHeader(http.StatusCreated)
+func CreateTodoItem(response http.ResponseWriter, request *http.Request) {
+	var newTodoItem TodoItemCreateBody
+	utils.ParseBody(request,  &newTodoItem)
+
+	todoItem := models.TodoItem{
+		Description: newTodoItem.Description,
+	}
+	transactions.CreateTodoItem(&todoItem)
+	utils.RespondCreated(response, todoItem)
 }

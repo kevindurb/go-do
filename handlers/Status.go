@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"encoding/json"
+	"kevindurb/go-do/utils"
 	"net/http"
 )
 
 func Status(response http.ResponseWriter, request *http.Request) {
-	json.NewEncoder(response).Encode("Hello World")
+	utils.RespondSuccess(response, "hello!")
 }
